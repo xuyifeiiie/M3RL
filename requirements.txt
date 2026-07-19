@@ -1,0 +1,16 @@
+torch>=2.5.1
+numpy
+pandas
+scipy
+scikit-learn
+h5py
+matplotlib
+networkx
+PyYAML
+tqdm
+packaging
+psutil
+PyWavelets
+gensim
+transformers
+wandb
