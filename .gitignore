@@ -12,6 +12,7 @@ wandb/
 checkpoints/
 saves/
 losses/
+word2vec/
 
 *.log
 *.pkl
@@ -26,7 +27,12 @@ data/**/raw/
 data/**/processed/
 data/**/*.csv
 data/**/*.jsonl
-data/align_*
+data/SN-*/
+data/TT-*/
+data/align_*_v1.*
+data/logparser/*
+
+models/
 
 .env
 .venv/

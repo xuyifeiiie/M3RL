@@ -181,11 +181,11 @@ def forecast(data_path, model_name, dataset_name, log, device, settings):
     if settings.if_wandb:
         wandb.init(
             config={
-                "architecture": "diffusion",
+                "architecture": "transformer",
                 "epoch": settings.epochs,
             },
             project="M3RL",
-            entity="xyf123",
+            entity="xxx",
             name="{}-{}".format(model_name, settings.expid),
             notes=dataset_name,
             job_type="training",

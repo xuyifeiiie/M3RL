@@ -51,11 +51,11 @@ parser.add_argument("--datapath", type=str, default="../data", help="Data dir")
 parser.add_argument(
     "--sample_rate", type=int, default=5, help="The sample rate of collecting metrics"
 )
-parser.add_argument("--batch_size", type=int, default=2, help="Training Batch Size")
+parser.add_argument("--batch_size", type=int, default=10, help="Training Batch Size")
 parser.add_argument(
-    "--valid_batch_size", type=int, default=6, help="Validation batch size"
+    "--valid_batch_size", type=int, default=10, help="Validation batch size"
 )
-parser.add_argument("--test_batch_size", type=int, default=6, help="Test Batch Size")
+parser.add_argument("--test_batch_size", type=int, default=10, help="Test Batch Size")
 parser.add_argument(
     "--if_shuffle", type=eval, default=True, help="Whether to shuffle dataset"
 )
@@ -182,11 +182,11 @@ def pretrain(data_path, model_name, dataset_name, log, device, settings):
     if settings.if_wandb:
         wandb.init(
             config={
-                "architecture": "diffusion",
+                "architecture": "transformer",
                 "epoch": settings.epochs,
             },
             project="M3RL",
-            entity="xyf123",
+            entity="xxx",
             name="{}-{}".format(model_name, settings.expid),
             notes=dataset_name,
             job_type="training",
