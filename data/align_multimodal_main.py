@@ -360,17 +360,17 @@ def generate_dataset(dataset_name, params):
     predict_steps = params["predict_steps"]
     if_concat = params["concat"]
     if params["data_split_type"] == "normal":
-        train_ratio = 0.8
-        test_ratio = 0.1
-        val_ratio = 0.1
+        train_ratio = 0.6
+        test_ratio = 0.2
+        val_ratio = 0.2
     elif params["data_split_type"] == "minor_test":
         train_ratio = 0.9
         test_ratio = 0.01
         val_ratio = 1 - train_ratio - test_ratio
     else:
-        train_ratio = 0.8
-        test_ratio = 0.1
-        val_ratio = 0.1
+        train_ratio = 0.6
+        test_ratio = 0.2
+        val_ratio = 0.2
     print(
         f"***Beginning generating {dataset_name} for horizon steps {predict_steps} based on history steps {history_steps}...\n"
     )
