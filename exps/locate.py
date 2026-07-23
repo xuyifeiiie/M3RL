@@ -43,7 +43,7 @@ parser.add_argument(
     "--model", type=str, default="M3RLStage2", help="The wanted model to run"
 )
 parser.add_argument(
-    "--dataset", type=str, default="SN-Eadro Dataset", help="Dataset config directory"
+    "--dataset", type=str, default="TT-Eadro Dataset", help="Dataset config directory"
 )
 parser.add_argument("--datapath", type=str, default="../data", help="Data dir")
 parser.add_argument(
