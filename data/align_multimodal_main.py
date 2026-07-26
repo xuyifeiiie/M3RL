@@ -639,7 +639,7 @@ parser.add_argument(
 parser.add_argument("--threshold", default=1, type=int)
 parser.add_argument("--history_steps", default=16, type=int)
 parser.add_argument("--predict_steps", default=16, type=int)
-parser.add_argument("--dataset_index", default=5, type=int, help="The dataset index")
+parser.add_argument("--dataset_index", default=4, type=int, help="The dataset index")
 parser.add_argument("--task", default="forecast", type=str)
 parser.add_argument(
     "--data_split_type", type=str, default="normal", help="set data split ratio"

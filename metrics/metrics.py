@@ -297,7 +297,7 @@ class Metrics(object):
                     node_probs.argsort(axis=1), axis=1
                 )  # B N, node idx from high prob to low prob
                 node_pred = []
-                detect_pred = detect_logits.argmax(axis=1).squeeze()  # B
+                detect_pred = detect_logits.argmax(axis=1) # B
                 for i in range(B):
                     node_pred.append([-1] if detect_pred[i] < 1 else node_list[i])
 

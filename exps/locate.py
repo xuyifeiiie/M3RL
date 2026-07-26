@@ -40,10 +40,10 @@ parser = argparse.ArgumentParser(description="arguments")
 parser.add_argument("--no_cuda", action="store_true", help="NO GPU")
 parser.add_argument("--task", type=str, default="locate", help="Task name")
 parser.add_argument(
-    "--model", type=str, default="M3RLStage2", help="The wanted model to run"
+    "--model", type=str, default="M3RLStage1", help="The wanted model to run"
 )
 parser.add_argument(
-    "--dataset", type=str, default="TT-Eadro Dataset", help="Dataset config directory"
+    "--dataset", type=str, default="SN-Eadro Dataset", help="Dataset config directory"
 )
 parser.add_argument("--datapath", type=str, default="../data", help="Data dir")
 parser.add_argument(
@@ -213,6 +213,8 @@ def locate(data_path, model_name, dataset_name, log, device, settings):
         load_pretrained_weights(
             engine.model, stage=2, pretrained_path=model_path1, device=device
         )
+    
+    epoch = 0
 
     for epoch in tqdm.tqdm(
         range(1, settings.epochs + 1), desc="Epoch Bar", dynamic_ncols=True
