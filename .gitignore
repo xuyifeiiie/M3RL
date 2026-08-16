@@ -29,7 +29,7 @@ data/**/*.csv
 data/**/*.jsonl
 data/SN-*/
 data/TT-*/
-data/align_*_v1.*
+data/align_*
 data/logparser/*
 data/analyze_*
 

@@ -37,8 +37,6 @@ The experiment scripts load telemetry from the data root specified by `--datapat
   TT-Eadro Dataset/
 ```
 
-The code uses chronological train/validation/test splits and fixed windows with `history_steps = 16` and `predict_steps = 16` in the released configurations.
-
 ## Repository Tree
 
 ```text
@@ -46,17 +44,6 @@ M3RL/
   configs/
     SN-Eadro Dataset/      Stage 1/Stage 2 configs for the SN-Eadro dataset
     TT-Eadro Dataset/      Stage 1/Stage 2 configs for the TT-Eadro dataset
-  data/
-    data_utils.py          Dataset metadata, service maps, and raw-path settings
-    process_log.py         Raw log parsing and template extraction
-    process_metric.py      Raw metric preprocessing
-    process_trace.py       Trace and dynamic dependency preprocessing
-    dataset_process_main.py
-                           First pass over raw metrics/logs/traces
-    align_multimodal_main.py
-                           Aligns modalities into M3RL training windows
-    h5_convert.py          Converts aligned NPZ chunks to HDF5 files
-    statistics_script.py   Processed-data inspection helper
   engines/
     pretrain_engine.py     Stage 1 training/evaluation loop
     forecast_engine.py     Stage 2 forecasting loop
@@ -91,8 +78,6 @@ M3RL/
     utils.py               Dataset loading and preprocessing utilities
 ```
 
-Generated checkpoints, logs, losses, HDF5/NPZ files, and processed data are intentionally ignored by Git.
-
 ## Configuration
 
 Experiment settings are stored in:
@@ -117,52 +102,32 @@ The downstream task is controlled by the `[data] task=...` field and should matc
 
 Run commands from the repository root (`M3RL/`).
 
-### 1. Preprocess Raw Telemetry
-
-The raw preprocessing workflow is:
+### 1. Stage 1 Pre-training
 
 ```bash
-python data/dataset_process_main.py
-python data/align_multimodal_main.py --history_steps 16 --predict_steps 16
-python data/h5_convert.py --dataset SN-Eadro
-```
-
-`dataset_process_main.py` prepares per-modality files from raw metrics, logs, and traces. `align_multimodal_main.py` aligns those modalities into fixed windows with dynamic adjacency matrices, anomaly labels, and node-level root cause labels. `h5_convert.py` converts the aligned `train.npz`, `val.npz`, and `test.npz` files into `train.h5`, `val.h5`, and `test.h5`, which are consumed by the later preprocessing/loading pipeline.
-
-For the TrainTicket dataset, replace `SN-Eadro` with `TT-Eadro`:
-
-```bash
-python data/h5_convert.py --dataset TT-Eadro
-```
-
-During the first experiment run, the loader builds semantic log features and writes final cached files named `train_processed.h5`, `val_processed.h5`, and `test_processed.h5` under the selected dataset's `processed/` directory. If those final HDF5 files already exist, the experiment scripts can load them directly.
-
-### 2. Stage 1 Pre-training
-
-```bash
-python exps/pretrain.py --dataset "SN-Eadro Dataset" --model M3RLStage1 --datapath ../data
+python exps/pretrain.py --dataset "SN-Eadro Dataset" --model M3RLStage1
 ```
 
 This trains `models/M3RL/stage1.py` with the configured restoration, prediction, and contrastive objectives.
 
-### 3. Stage 2 Downstream Fine-tuning
+### 2. Stage 2 Downstream Fine-tuning
 
 Forecasting:
 
 ```bash
-python exps/forecast.py --dataset "TT-Eadro Dataset" --model M3RLStage2 --datapath ../data
+python exps/forecast.py --dataset "TT-Eadro Dataset" --model M3RLStage2
 ```
 
 Anomaly detection:
 
 ```bash
-python exps/detect.py --dataset "SN-Eadro Dataset" --model M3RLStage2 --datapath ../data
+python exps/detect.py --dataset "SN-Eadro Dataset" --model M3RLStage2
 ```
 
 Root cause localization:
 
 ```bash
-python exps/locate.py --dataset "SN-Eadro Dataset" --model M3RLStage2 --datapath ../data
+python exps/locate.py --dataset "SN-Eadro Dataset" --model M3RLStage2
 ```
 
 Before running a downstream script, check that the selected `M3RLStage2.conf` has a matching `[data] task` value (`forecast`, `detect`, or `locate`). The experiment scripts read the selected config from `configs/<dataset>/<model>.conf`, so command-line `--dataset` and `--model` must match an existing config directory and filename.

@@ -40,7 +40,7 @@ parser = argparse.ArgumentParser(description="arguments")
 parser.add_argument("--no_cuda", action="store_true", help="NO GPU")
 parser.add_argument("--task", type=str, default="locate", help="Task name")
 parser.add_argument(
-    "--model", type=str, default="M3RLStage1", help="The wanted model to run"
+    "--model", type=str, default="M3RLStage2", help="The wanted model to run"
 )
 parser.add_argument(
     "--dataset", type=str, default="SN-Eadro Dataset", help="Dataset config directory"
