@@ -32,7 +32,7 @@ data/TT-*/
 data/align_*
 data/logparser/*
 data/analyze_*
-data/*
+data/
 
 models/ART
 configs/SN-*/ART.*
